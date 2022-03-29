@@ -1,18 +1,20 @@
 import {Row, Col} from 'react-bootstrap'
+
 import Book from '../components/Book'
-import axios from 'axios'
+import {listBooks} from '../actions/bookActions'
+
 import {useState, useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 
 const Home = () => {
-  const [books, setBooks] = useState([])
+  const dispatch = useDispatch()
+  const bookList = useSelector(state => state.bookList)
+  const {error, loading, books} = bookList
 
   useEffect(() => {
-    axios
-      .get('http://localhost:8000/api/books/')
-      .then((response) => {
-        setBooks(response.data)
-      })
+    dispatch(listBooks())
   }, [])
+
 
   return(
     <div>
@@ -30,4 +32,5 @@ const Home = () => {
 
 export default Home
 
-/*useEffect got triggered everytime when the components loaded*/
+/*useEffect got triggered everytime when the components loaded
+The state contains many information(books [], loading, error) so I destructured the data and tell it what I want to use*/

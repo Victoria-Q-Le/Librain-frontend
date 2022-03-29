@@ -26,7 +26,7 @@ const BookPage = () => {
       <Link to='/' className='btn btn-light my-3'> <House /> </Link>
       <Row>
         <Col md={6}>
-          <Image src={book.image} alt={book.name} fluid/>
+          <Image src={book.image} alt={book.name} fluid />
         </Col>
 
         <Col md={3}>
