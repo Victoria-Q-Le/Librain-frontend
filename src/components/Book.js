@@ -22,7 +22,7 @@ const Book = ({book}) => {
           </div>
         </Card.Text>
 
-        <Card.Text>
+        <Card.Text as = 'div'>
           <h3>${book.price}</h3>
         </Card.Text>
       </Card.Body>

@@ -1,10 +1,26 @@
-import {Link} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
+import {useState, useEffect} from 'react'
+import axios from 'axios'
+
 import {Row, Col, Image, ListGroup, Button, Card} from 'react-bootstrap'
 import {House} from 'react-bootstrap-icons'
+
 import Rating from '../components/Rating'
 
-const BookPage = ({match}) => {
-  const book = books.find((b) => b.id == match.params.id)
+const BookPage = () => {
+  const {id} = useParams()
+  const [book, setBook] = useState({})
+  console.log(id);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/api/books/${id}`)
+      .then((response) => {
+        setBook(response.data)
+      })
+  }, [])
+
+
   return(
     <div>
       <Link to='/' className='btn btn-light my-3'> <House /> </Link>
