@@ -5,7 +5,7 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import {listBooks} from '../actions/bookActions'
 
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
 const Home = () => {
