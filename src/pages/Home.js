@@ -1,6 +1,8 @@
 import {Row, Col} from 'react-bootstrap'
 
 import Book from '../components/Book'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 import {listBooks} from '../actions/bookActions'
 
 import {useState, useEffect} from 'react'
@@ -13,19 +15,26 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(listBooks())
-  }, [])
+  }, [dispatch])
 
 
   return(
     <div>
       <h1>Editor Choice Books</h1>
-      <Row>
-        {books.map(book => (
-          <Col key={book.id} sm={12} md={6} lg={4} xl={3}>
-            <Book book={book}/>
-          </Col>
-        ))}
-      </Row>
+      {loading
+        ? <Loader />
+        : error
+          ? <Message variant ='danger'>{error}</Message>
+          :
+            <Row>
+              {books.map(book => (
+                <Col key={book.id} sm={12} md={6} lg={4} xl={3}>
+                  <Book book={book}/>
+                </Col>
+              ))}
+            </Row>
+      }
+
     </div>
   )
 }
