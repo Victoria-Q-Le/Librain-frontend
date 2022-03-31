@@ -1,4 +1,4 @@
-import {Link, useParams} from 'react-router-dom'
+import {Link, useParams,useNavigate} from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
@@ -12,6 +12,7 @@ import {listBookDetails} from '../actions/bookActions'
 
 const BookPage = () => {
   const [qty, setQty] = useState(1)
+  const navigate = useNavigate()
   const {id} = useParams()
   const dispatch = useDispatch()
   const bookDetails = useSelector(state => state.bookDetails)
@@ -22,7 +23,7 @@ const BookPage = () => {
   }, [dispatch,id])
 
   const addToCart = () => {
-    console.log('add to Cart', id);
+    navigate(`/cart/${id}?qty=${qty}`)
   }
 
   return(
