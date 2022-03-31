@@ -18,7 +18,8 @@ function App() {
           <Routes>
             <Route path='/' element= <Home /> exact />
             <Route path='/book/:id' element= <BookPage /> />
-            <Route path='/cart/:id?' element= <Cart /> />
+            <Route path='/cart/:id' element= <Cart /> />
+            <Route path='/cart' element= <Cart /> />
           </Routes>
         </Container>
       </main>
