@@ -9,9 +9,10 @@ import Message from '../components/Message'
 import {addToCart} from '../actions/cartActions'
 
 const Cart = ({history}) => {
-  const {bookId} = useParams()
+  const {id} = useParams()
 
-  const qty = useLocation().search.split('=')[1]
+  const strQty = useLocation().search.split('=')[1]
+  const qty = Number(strQty)
 
   const dispatch = useDispatch()
 
@@ -19,10 +20,10 @@ const Cart = ({history}) => {
   const {cartItems} = cart
 
   useEffect(() => {
-    if(bookId){
-      dispatch(addToCart(bookId, qty))
+    if(id){
+      dispatch(addToCart(id, qty))
     }
-  },[dispatch, bookId, qty])
+  },[dispatch, id, qty])
 
   const removeFromCart = (id) => {
     console.log('remove', id);
@@ -86,7 +87,7 @@ const Cart = ({history}) => {
         </Card>
       </Col>
     </Row>
-  )
+    )
 }
 
 export default Cart
