@@ -6,9 +6,9 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
   const {data} = await axios.get(`http://localhost:8000/api/books/${id}`)
 
   dispatch({
-    types: CART_ADD_ITEM,
+    type: CART_ADD_ITEM,
     payload: {
-      book: data.id,
+      bookId: data.id,
       name: data.name,
       image: data.image,
       price: data.price,
@@ -16,7 +16,6 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       qty
     }
   })
-
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
 

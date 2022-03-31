@@ -1,5 +1,5 @@
 import {useEffect} from 'react'
-import {Link, useParams, useNavigate, useLocation } from 'react-router-dom'
+import {Link, useParams, useLocation } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 
 import {Row, Col, ListGroup, Image, Form, Button, Card} from 'react-bootstrap'
@@ -9,15 +9,20 @@ import Message from '../components/Message'
 import {addToCart} from '../actions/cartActions'
 
 const Cart = ({history}) => {
-  const {bookId} = useParams()
+  const {id} = useParams()
   const qty = useLocation().search.split('=')[1]
-    console.log('qty', qty);
 
   const dispatch = useDispatch()
 
-  useEffect = () => {
+  const cart = useSelector(state => state.cart)
+  const {cartItems} = cart
+    console.log('cartItems: ', cartItems);
 
-  }
+  useEffect(() => {
+    if(id){
+      dispatch(addToCart(id, qty))
+    }
+  },[dispatch, id, qty])
 
   return(
     <div>
