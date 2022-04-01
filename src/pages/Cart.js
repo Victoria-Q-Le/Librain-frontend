@@ -1,20 +1,21 @@
 import {useEffect} from 'react'
-import {Link, useParams, useLocation } from 'react-router-dom'
+import {Link, useParams, useLocation, useNavigate } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 
 import {Row, Col, ListGroup, Image, Form, Button, Card} from 'react-bootstrap'
 
 import Message from '../components/Message'
 
-import {addToCart} from '../actions/cartActions'
+import {addToCart, removeFromCart} from '../actions/cartActions'
 
 const Cart = ({history}) => {
   const {id} = useParams()
 
-  const strQty = useLocation().search.split('=')[1]
-  const qty = Number(strQty)
+  const qty = useLocation().search.split('=')[1]
 
   const dispatch = useDispatch()
+
+  const navigate = useNavigate()
 
   const cart = useSelector(state => state.cart)
   const {cartItems} = cart
@@ -25,8 +26,12 @@ const Cart = ({history}) => {
     }
   },[dispatch, id, qty])
 
-  const removeFromCart = (id) => {
-    console.log('remove', id);
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
+  }
+
+  const checkoutHandler = () => {
+    navigate('/login?redirect=shipping')
   }
 
   return(
@@ -51,7 +56,7 @@ const Cart = ({history}) => {
                       <Col md={2}> ${item.price} </Col>
 
                       <Col md={3}>
-                        <Form.Control as='select' value={item.qty} onChange={(e) => dispatch(addToCart(item.bookId, e.target.value))}>
+                        <Form.Control as='select' value={item.qty} onChange={(e) => dispatch(addToCart(item.bookId, Number(e.target.value)))}>
                           {
                             [...Array(item.countInStock).keys()].map((x) => (
                               <option key={x+1} value ={x+1}>
@@ -66,7 +71,7 @@ const Cart = ({history}) => {
                         <Button
                           type='button'
                           variant='light'
-                          onClick={(e) => removeFromCart(item.bookId)}>
+                          onClick={(e) => removeFromCartHandler(item.bookId)}>
                           <i className='fas fa-trash'></i>
                         </Button>
                       </Col>
@@ -81,7 +86,19 @@ const Cart = ({history}) => {
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h2>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty,0)}) items </h2>
+              <h2>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items </h2>
+              ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}
+            </ListGroup.Item>
+
+            <ListGroup.Item>
+              <Button
+                type ='button'
+                className='btn-block'
+                disabled={cartItems.length === 0}
+                onClick={checkoutHandler}>
+                  Proceed To Checkout
+
+              </Button>
             </ListGroup.Item>
           </ListGroup>
         </Card>
