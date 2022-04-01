@@ -4,19 +4,26 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 
 import  {bookListReducer, bookDetailsReducer} from './reducers/bookReducers'
 import  {cartReducer} from './reducers/cartReducers'
+import  {userLoginReducer} from './reducers/userReducers'
 
 const reducer = combineReducers({
   bookList: bookListReducer,
   bookDetails: bookDetailsReducer,
   cart:cartReducer,
+  userLogin: userLoginReducer
 })
 
 const cartItemsfromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
   : []
 
+const userInfofromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null
+
 const initialState = {
-  cart: {cartItems: cartItemsfromStorage}
+  cart: {cartItems: cartItemsfromStorage},
+  userLogin: {userInfo: userInfofromStorage}
 }
 
 const middleware = [thunk]
