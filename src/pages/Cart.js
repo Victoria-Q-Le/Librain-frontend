@@ -11,7 +11,7 @@ import {addToCart, removeFromCart} from '../actions/cartActions'
 const Cart = ({history}) => {
   const {id} = useParams()
 
-  const qty = useLocation().search.split('=')[1]
+  const qty = parseInt(useLocation().search.split('=')[1])
 
   const dispatch = useDispatch()
 
