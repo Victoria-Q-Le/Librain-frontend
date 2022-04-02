@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useNavigate, Link} from 'react-router-dom'
 
@@ -7,16 +7,42 @@ import {Button, Row, Col, ListGroup, Image,Card} from 'react-bootstrap'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 
+import {createOrder} from '../actions/orderActions'
+
 const PlaceOrderPage = () => {
+
+  const orderCreate = useSelector(state => state.orderCreate)
+  const {order, error, success} = orderCreate
   const cart = useSelector(state => state.cart)
 
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
+
   cart.itemsPrice = cart.cartItems.reduce((acc,item) => acc + item.price * item.qty,0).toFixed(2)
-  cart.shippingPrice = (cart.itemsPrice > 100 ? 0 : 10).toFixed(2)
-  cart.taxPrice = Number(cart.itemsPrice * (0.0625)).toFixed(2)
+  cart.shippingPrice = cart.itemsPrice > 100 ? 0 : 10
+  cart.taxPrice = Number((cart.itemsPrice * (0.0625)).toFixed(2))
   cart.totalPrice = Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)
 
+  if(!cart.shippingAddress){
+    navigate('/shipping')
+  }
+
+  useEffect(() => {
+    if (success){
+      navigate(`/order/${order.id}`)
+    }
+  },[success, navigate])
+
   const placeOrder = () => {
-    console.log('placeOrder');
+    dispatch(createOrder({
+      orderItems: cart.cartItems,
+      shippingAddress: cart.shippingAddress,
+      paymentMethod: cart.paymentMethod,
+      shippingPrice: cart.shippingPrice,
+      taxPrice: cart.taxPrice,
+      totalPrice: cart.totalPrice
+    }))
   }
   return(
     <div>
@@ -101,6 +127,11 @@ const PlaceOrderPage = () => {
                   <Col>${cart.totalPrice} </Col>
                 </Row>
               </ListGroup.Item>
+
+              <ListGroup.Item>
+                {error && <Message variant='danger'>{error}</Message>}
+              </ListGroup.Item>
+
 
               <ListGroup.Item>
                 <Button
