@@ -21,7 +21,7 @@ export const login = (email, password) => async (dispatch) => {
       type: USER_LOGIN_REQUEST
     })
     const config = {
-      header:{
+      headers:{
         'Content-type':'application/json'
       }
     }
@@ -55,7 +55,7 @@ export const register = (name, email, password) => async (dispatch) => {
       type: USER_REGISTER_REQUEST
     })
     const config = {
-      header:{
+      headers:{
         'Content-type':'application/json'
       }
     }
@@ -91,7 +91,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 
     const {userLogin: {userInfo}} = getState()
     const config = {
-      header:{
+      headers:{
         'Content-type':'application/json',
         Authorization: `Bearer ${userInfo.access}`,
       }

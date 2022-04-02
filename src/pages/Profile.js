@@ -29,10 +29,14 @@ const ProfilePage = () => {
     if(!userInfo) {
       navigate('/login')
     } else {
-        setName(userInfo.name)
-        setEmail(userInfo.email)
+      if(!user || !user.name){
+        dispatch(getUserDetails('profile'))
+      } else {
+        setName(user.name)
+        setEmail(user.email)
       }
-    },[navigate, userInfo])
+    }
+  },[dispatch, navigate, userInfo, user])
 
   const submitHandler = (e) => {
     e.preventDefault()
