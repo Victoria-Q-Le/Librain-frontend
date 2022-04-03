@@ -35,7 +35,7 @@ const PlaceOrderPage = () => {
       navigate(`/order/${order.id}`)
       dispatch({type: ORDER_CREATE_RESET})
     }
-  },[success, navigate, dispatch])
+  },[success, navigate, dispatch, order.id])
 
   const placeOrder = () => {
     dispatch(createOrder({

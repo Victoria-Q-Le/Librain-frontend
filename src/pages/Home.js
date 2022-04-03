@@ -6,7 +6,7 @@ import Message from '../components/Message'
 import {listBooks} from '../actions/bookActions'
 
 import {useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 
 const Home = () => {
