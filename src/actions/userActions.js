@@ -16,7 +16,7 @@ import {
 
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
-  USER_UPDATE_PROFILE_FAIL,s
+  USER_UPDATE_PROFILE_FAIL
 } from '../constants/userConstants'
 
 import {ORDER_LIST_MY_RESET} from '../constants/orderConstants'
