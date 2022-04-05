@@ -8,7 +8,7 @@ import {
 } from '../constants/cartConstants'
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-  const {data} = await axios.get(`http://localhost:8000/api/books/${id}`)
+  const {data} = await axios.get(`https://librain-backend.herokuapp.com/api/books/${id}`)
 
   dispatch({
     type: CART_ADD_ITEM,

@@ -33,7 +33,7 @@ export const login = (email, password) => async (dispatch) => {
         'Content-type':'application/json'
       }
     }
-    const {data} = await axios.post('http://localhost:8000/api/users/login/', {'username':email, 'password': password},config)
+    const {data} = await axios.post('https://librain-backend.herokuapp.com/api/users/login/', {'username':email, 'password': password},config)
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
@@ -69,7 +69,7 @@ export const register = (name, email, password) => async (dispatch) => {
         'Content-type':'application/json'
       }
     }
-    const {data} = await axios.post('http://localhost:8000/api/users/register/', {'name':name, 'email':email, 'password': password},config)
+    const {data} = await axios.post('https://librain-backend.herokuapp.com/api/users/register/', {'name':name, 'email':email, 'password': password},config)
 
     dispatch({
       type: USER_REGISTER_SUCCESS,
@@ -107,7 +107,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       }
     }
 
-    const {data} = await axios.get(`http://localhost:8000/api/users/${id}/`, config)
+    const {data} = await axios.get(`https://librain-backend.herokuapp.com/api/users/${id}/`, config)
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
@@ -139,7 +139,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       }
     }
 
-    const {data} = await axios.put(`http://localhost:8000/api/users/profile/update/`,user, config)
+    const {data} = await axios.put(`https://librain-backend.herokuapp.com/api/users/profile/update/`,user, config)
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,

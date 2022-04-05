@@ -35,7 +35,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       }
     }
 
-    const {data} = await axios.post(`http://localhost:8000/api/orders/add/`,order, config)
+    const {data} = await axios.post(`https://librain-backend.herokuapp.com/api/orders/add/`,order, config)
 
     dispatch({
       type: ORDER_CREATE_SUCCESS,
@@ -75,7 +75,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
       }
     }
 
-    const {data} = await axios.get(`http://localhost:8000/api/orders/${id}/`, config)
+    const {data} = await axios.get(`https://librain-backend.herokuapp.com/api/orders/${id}/`, config)
 
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
@@ -108,7 +108,7 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
       }
     }
 
-    const {data} = await axios.put(`http://localhost:8000/api/orders/${id}/pay/`, paymentResult, config)
+    const {data} = await axios.put(`https://librain-backend.herokuapp.com/api/orders/${id}/pay/`, paymentResult, config)
 
     dispatch({
       type: ORDER_PAY_SUCCESS,
@@ -141,7 +141,7 @@ export const listMyOrders = () => async (dispatch, getState) => {
       }
     }
 
-    const {data} = await axios.get(`http://localhost:8000/api/orders/myorders/`, config)
+    const {data} = await axios.get(`https://librain-backend.herokuapp.com/api/orders/myorders/`, config)
 
     dispatch({
       type: ORDER_LIST_MY_SUCCESS,

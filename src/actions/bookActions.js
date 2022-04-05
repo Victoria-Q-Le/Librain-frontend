@@ -12,7 +12,7 @@ import axios from 'axios'
 export const listBooks = () => async (dispatch) => {
   try{
     dispatch({type: BOOK_LIST_REQUEST})
-    const {data} = await axios.get(`http://localhost:8000/api/books/`)
+    const {data} = await axios.get(`https://librain-backend.herokuapp.com/api/books/`)
     dispatch({
       type: BOOK_LIST_SUCCESS,
       payload: data
@@ -31,7 +31,7 @@ export const listBooks = () => async (dispatch) => {
 export const listBookDetails = (id) => async (dispatch) => {
   try{
     dispatch({type: BOOK_DETAILS_REQUEST})
-    const {data} = await axios.get(`http://localhost:8000/api/books/${id}`)
+    const {data} = await axios.get(`https://librain-backend.herokuapp.com/api/books/${id}`)
     dispatch({
       type: BOOK_DETAILS_SUCCESS,
       payload: data
