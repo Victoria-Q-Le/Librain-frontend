@@ -54,6 +54,9 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo')
+  localStorage.removeItem('shippingAdrress')
+  localStorage.removeItem('paymentMethod')
+  localStorage.removeItem('__paypal_storage__')
   dispatch({type: USER_LOGOUT})
   dispatch({type: USER_DETAILS_RESET})
   dispatch({type: ORDER_LIST_MY_RESET})
